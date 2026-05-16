@@ -11,13 +11,13 @@
                 </p>
                 <div class="flex space-x-4 pt-2">
                     <a href="#" class="w-8 h-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center hover:bg-pink-600 hover:text-white transition">
-                        <i class="fab fa-facebook-f text-xs"></i>
+                        <i class="fa-brands fa-facebook-f text-xs"></i>
                     </a>
                     <a href="#" class="w-8 h-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center hover:bg-pink-600 hover:text-white transition">
-                        <i class="fab fa-instagram text-xs"></i>
+                        <i class="fa-brands fa-instagram text-xs"></i>
                     </a>
                     <a href="#" class="w-8 h-8 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center hover:bg-pink-600 hover:text-white transition">
-                        <i class="fab fa-whatsapp text-xs"></i>
+                        <i class="fa-brands fa-tiktok text-xs"></i>
                     </a>
                 </div>
             </div>

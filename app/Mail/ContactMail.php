@@ -29,7 +29,7 @@ class ContactMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'emails.contact', // Yeh hamari blade file ka path hai
+            view: 'mailContact', // Yeh hamari blade file ka path hai
         );
     }
 }

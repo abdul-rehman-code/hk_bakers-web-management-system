@@ -65,7 +65,7 @@
         </div>
 
         <div class="border-t border-gray-100 pt-8 text-center text-xs text-gray-400">
-            © 2026 HK Bakers. All Rights Reserved.
+            © 2026 HK Bakers. All Rights Reserved. | Developed by AR SOFT
         </div>
     </div>
 </footer>

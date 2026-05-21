@@ -85,32 +85,44 @@
                     <div class="absolute -top-20 -right-20 w-40 h-40 bg-pink-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
                     <div class="absolute -bottom-20 -left-20 w-40 h-40 bg-yellow-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30"></div>
 
-                    <form action="#" class="space-y-6 relative z-10">
+                    {{-- Success Message Alert (Controlled via JavaScript) --}}
+                    <div id="success-alert" class="hidden mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-2xl font-semibold relative z-10">
+                    </div>
+
+                    {{-- Main Form with unique ID --}}
+                    <form id="contactForm" action="{{ route('contact.submit') }}" method="POST" class="space-y-6 relative z-10">
+                        @csrf
+
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label class="text-[#3A2A26] font-bold text-sm ml-2">Full Name</label>
-                                <input type="text" placeholder="John Doe" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none">
+                                <input type="text" name="name" placeholder="AR SOFT" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none" required>
+                                <span id="error-name" class="text-red-500 text-xs ml-2 hidden"></span>
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[#3A2A26] font-bold text-sm ml-2">Email Address</label>
-                                <input type="email" placeholder="john@example.com" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none">
+                                <input type="email" name="email" placeholder="ardigitalsoftware@gmail.com" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none" required>
+                                <span id="error-email" class="text-red-500 text-xs ml-2 hidden"></span>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="space-y-2">
                                 <label class="text-[#3A2A26] font-bold text-sm ml-2">Phone Number</label>
-                                <input type="text" placeholder="+92 300 0000000" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none">
+                                <input type="text" name="phone" placeholder="+923027988096" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none">
+                                <span id="error-phone" class="text-red-500 text-xs ml-2 hidden"></span>
                             </div>
                             <div class="space-y-2">
                                 <label class="text-[#3A2A26] font-bold text-sm ml-2">Subject</label>
-                                <input type="text" placeholder="Custom Cake Inquiry" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none">
+                                <input type="text" name="subject" placeholder="Custom Cake Inquiry" class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none" required>
+                                <span id="error-subject" class="text-red-500 text-xs ml-2 hidden"></span>
                             </div>
                         </div>
 
                         <div class="space-y-2">
                             <label class="text-[#3A2A26] font-bold text-sm ml-2">Your Message</label>
-                            <textarea rows="5" placeholder="Tell us about your event or request..." class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none resize-none"></textarea>
+                            <textarea name="message" rows="5" placeholder="Tell us about your event or request..." class="w-full px-6 py-4 rounded-2xl bg-[#FFF5F1] border border-transparent focus:border-pink-200 focus:bg-white focus:ring-4 focus:ring-pink-50 transition-all text-gray-700 outline-none resize-none" required></textarea>
+                            <span id="error-message" class="text-red-500 text-xs ml-2 hidden"></span>
                         </div>
 
                         <button type="submit" class="w-full bg-[#F0718A] text-white px-8 py-5 rounded-2xl font-bold text-lg hover:bg-[#E06079] transition-all shadow-lg shadow-pink-200 active:scale-[0.98] flex items-center justify-center gap-2 mt-4">
@@ -126,5 +138,78 @@
         </div>
     </div>
 </section>
+
+{{-- AJAX Script Section --}}
+<script>
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Page reload rokne ke liye
+
+    let form = this;
+    let formData = new FormData(form);
+    let submitButton = form.querySelector('button[type="submit"]');
+    let alertBox = document.getElementById('success-alert');
+
+    // Purane errors ko saaf (hide) karne ke liye
+    document.querySelectorAll('[id^="error-"]').forEach(el => {
+        el.classList.add('hidden');
+        el.innerText = '';
+    });
+    alertBox.classList.add('hidden');
+
+    // Button par loading state lagana
+    submitButton.disabled = true;
+    submitButton.innerHTML = '<span>Sending Message...</span>';
+
+    // Fetch API call
+    fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Accept': 'application/json'
+        }
+    })
+    .then(async response => {
+        const data = await response.json();
+
+        if (!response.ok) {
+            // Agar validation fail ho jaye (Status 422)
+            if (response.status === 422 && data.errors) {
+                Object.keys(data.errors).forEach(key => {
+                    let errorSpan = document.getElementById(`error-${key}`);
+                    if (errorSpan) {
+                        errorSpan.innerText = data.errors[key][0];
+                        errorSpan.classList.remove('hidden');
+                    }
+                });
+            } else {
+                throw new Error(data.message || 'Server Error');
+            }
+        } else if (data.success) {
+            // Agar email kamyabi se send ho jaye
+            alertBox.innerText = data.message;
+            alertBox.classList.remove('hidden');
+            form.reset(); // Form clear karna
+
+            // 5 second baad alert box ko automatic hide karna
+            setTimeout(() => alertBox.classList.add('hidden'), 5000);
+        }
+    })
+    .catch(error => {
+        console.error('AJAX Error:', error);
+        alert('Internal server error. Try again!');
+    })
+    .finally(() => {
+        // Button ko normal state mein wapas lana
+        submitButton.disabled = false;
+        submitButton.innerHTML = `
+            <span>Send Message</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+            </svg>
+        `;
+    });
+});
+</script>
 
 @endsection

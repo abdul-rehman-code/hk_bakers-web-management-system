@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <section class="relative h-[600px] flex items-center overflow-hidden bg-[#FFF4ED]">
+    <section class="relative h-[600px] flex items-center overflow-hidden bg-[#FFF4ED] bg-gradient-to-r from-[#FFF4ED] via-[#FFE5D9] to-[#FFF0E6]">
     <div class="absolute inset-0 z-0">
         <img src="{{ asset('images/card_pic.png') }}"
              class="w-full h-full object-cover"
@@ -49,7 +49,7 @@
             {{-- dynamic categories --}}
              @foreach($categories as $category)
             <a href="{{ route('products') }}?category={{ $category->slug }}" class="group">
-                <div class="bg-[#FFF8F6] rounded-[2rem] p-6 flex flex-col items-center justify-center transition-all duration-300 hover:bg-[#FEECEB] hover:shadow-md hover:-translate-y-1 border border-pink-100/50">
+                <div class="group bg-white/30 backdrop-blur-lg rounded-[2rem] p-6 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white/40 hover:shadow-md hover:-translate-y-1 border border-pink-100/50 animate-fade-in">
                     <div class="h-24 w-24 mb-4 flex items-center justify-center">
                         <img src="{{ asset('storage/' . $category->image) }}"
                             alt="{{ $category->name }}"
@@ -169,13 +169,21 @@
         animation: float 4s ease-in-out infinite;
     }
 </style>
+<style>
+    /* Fade-in animation */
+    @keyframes fadeIn {
+        0% { opacity: 0; transform: translateY(20px); }
+        100% { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
+</style>
 
 <section class="py-20 bg-[#FFFBF9]">
     <div class="container mx-auto px-6 max-w-6xl">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-start">
 
             <!-- About Us -->
-            <div class="flex flex-col md:flex-row gap-10 items-center text-center md:text-left bg-white/50 p-8 rounded-[3rem] md:bg-transparent md:p-0">
+            <div class="flex flex-col md:flex-row gap-10 items-center text-center md:text-left bg-white/30 backdrop-blur-lg rounded-[3rem] p-8 animate-fade-in md:bg-transparent md:p-0">
                 <div class="w-48 md:w-64 shrink-0 mx-auto md:mx-0">
                     <img src="{{ asset('images/about_us_section.png') }}" alt="Bakery Items"
                          class="w-full h-auto drop-shadow-2xl opacity-90 -rotate-6 md:-rotate-12 transform transition hover:scale-105">

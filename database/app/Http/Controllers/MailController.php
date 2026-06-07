@@ -20,7 +20,7 @@ class MailController extends Controller
         ]);
 
         // 2. Email Send Karein
-        Mail::to('info@hkbakers.com')->send(new ContactMail($validatedData));
+        Mail::to('hafizabdulrehman6815@gmail.com')->send(new ContactMail($validatedData));
 
         // 3. Response: HTML ki bajaye JSON return karein (AJAX ke liye)
         return response()->json([

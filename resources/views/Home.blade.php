@@ -66,15 +66,15 @@
         </div>
 
         {{-- Right Aligned Clean Link with Modern Underline Effect --}}
-        <div class="flex justify-end mt-4">
-            <a href="{{ route('products') }}" class="group inline-flex items-center gap-1 text-pink-500 font-semibold text-sm relative pb-1">
-                <span>View All Categories</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                </svg>
-                <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-pink-400 transition-all duration-300 group-hover:w-full"></span>
-            </a>
-        </div>
+        <div class="flex justify-end -mb-20 mt-3 px-1">
+    <a href="{{ route('products') }}" class="group inline-flex items-center gap-1.5 text-pink-500 font-semibold text-xs md:text-sm relative pb-1 bg-pink-50/80 active:bg-pink-100/80 border border-pink-100 px-3 py-1.5 rounded-full md:bg-transparent md:border-0 md:p-0 md:rounded-none">
+        <span>View All</span>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3 h-3 md:w-3.5 md:h-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+        <span class="hidden md:block absolute bottom-0 left-0 w-0 h-[2px] bg-pink-400 transition-all duration-300 group-hover:w-full"></span>
+    </a>
+</div>
 
     </div>
 </section>

@@ -14,7 +14,7 @@
         <div class="md:w-2/3 lg:w-1/2 space-y-6">
             <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-[#3A2A26] leading-[1.05]" style="font-family: 'Playfair Display', serif;">
                 Freshly <span class="text-[#F0718A] italic" style="font-family: 'Dancing Script', cursive;">Baked</span> <br>
-                Happiness, Every Day 
+                Happiness, Every Day
                 <span class="text-[#F0718A] font-sans font-normal text-6xl md:text-8xl inline-block rotate-12 align-middle ml-2 drop-shadow-sm">♡</span>
             </h1>
 
@@ -35,9 +35,9 @@
 </section>
 
 
-    <section class="py-16 bg-[#FFFBF9]" style="font-family: 'Poppins', sans-serif;">
+   <section class="py-12 bg-[#FFFBF9]" style="font-family: 'Poppins', sans-serif;">
     <div class="container mx-auto px-6">
-        <div class="text-center mb-12">
+        <div class="text-center mb-10">
             <h2 class="text-3xl font-bold text-[#3A2A26]" style="font-family: 'Playfair Display', serif;">Our Categories</h2>
             <div class="relative flex items-center justify-center mt-2">
                 <div class="w-24 h-[1px] bg-pink-200"></div>
@@ -45,17 +45,18 @@
             </div>
         </div>
 
+        {{-- Categories Grid --}}
         <div class="grid grid-cols-2 md:grid-cols-6 gap-6">
             {{-- dynamic categories --}}
-             @foreach($categories as $category)
+            @foreach($categories as $category)
             <a href="{{ route('products') }}?category={{ $category->slug }}" class="group">
-                <div class="group bg-white/30 backdrop-blur-lg rounded-[2rem] p-6 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white/40 hover:shadow-md hover:-translate-y-1 border border-pink-100/50 animate-fade-in">
+                <div class="bg-white/30 backdrop-blur-lg rounded-[2rem] p-6 flex flex-col items-center justify-center transition-all duration-300 hover:bg-white/40 hover:shadow-md hover:-translate-y-1 border border-pink-100/50 animate-fade-in h-full">
                     <div class="h-24 w-24 mb-4 flex items-center justify-center">
                         <img src="{{ asset('storage/' . $category->image) }}"
                             alt="{{ $category->name }}"
                             class="max-w-full max-h-full object-contain">
                     </div>
-                    <p class="font-bold text-gray-800 text-lg" style="font-family: 'Playfair Display', serif;">
+                    <p class="font-bold text-gray-800 text-lg text-center" style="font-family: 'Playfair Display', serif;">
                         {{ $category->name }}
                     </p>
                 </div>
@@ -63,6 +64,18 @@
             @endforeach
             {{-- dynamic categories --}}
         </div>
+
+        {{-- Right Aligned Clean Link with Modern Underline Effect --}}
+        <div class="flex justify-end mt-4">
+            <a href="{{ route('products') }}" class="group inline-flex items-center gap-1 text-pink-500 font-semibold text-sm relative pb-1">
+                <span>View All Categories</span>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                </svg>
+                <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-pink-400 transition-all duration-300 group-hover:w-full"></span>
+            </a>
+        </div>
+
     </div>
 </section>
 

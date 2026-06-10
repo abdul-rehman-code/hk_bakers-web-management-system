@@ -145,6 +145,17 @@ Repeater::make('items')
                     ->searchable()
                     ->sortable(),
 
+                 TextColumn::make('id') // Hum 'id' use kar rahe hain taake Filament array bypass kare, lekin label 'Products' hi dikhega
+                    ->label('Products & Qty')
+                    ->badge()
+                    ->color('success')
+                    ->state(function ($record) {
+                        // 'state' function use karne se Filament direct array ko accept kar leta hai badges banane ke liye
+                        return $record->products->map(function ($product) {
+                            $qty = $product->pivot->quantity ?? 1;
+                            return "{$product->name} (x{$qty})";
+                        })->toArray();
+                    }),
                 TextColumn::make('customer_name')
                     ->searchable(),
 
